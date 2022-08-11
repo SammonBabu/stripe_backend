@@ -4,14 +4,13 @@ const cors = require("cors");
 const Stripe = require("stripe");
 const stripe = Stripe(process.env.STRIPE_SECRET_KEY);
 const app = express();
-const PORT = 8080;
+const PORT = 3000;
 
 app.use("/stripe", express.raw({ type: "*/*" }));
 app.use(express.json());
 app.use(cors());
 
 app.post("/pay", async (req, res) => {
-  app.listen(PORT, () => console.log(`Server  on port ${PORT}`));
   try {
     const { name } = req.body;
     if (!name) return res.status(400).json({ message: "Please enter a name" });
