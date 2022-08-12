@@ -13,7 +13,7 @@ app.use(cors());
 app.post("/pay", async (req, res) => {
   try {
     const { amount, id } = req.body;
-    if (!amout) return res.status(400).json({ message: "Amount is missing" });
+    if (!amount) return res.status(400).json({ message: "Amount is missing" });
     const paymentIntent = await stripe.paymentIntents.create({
       amount: amount,
       currency: "INR",
