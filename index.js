@@ -12,13 +12,15 @@ app.use(cors());
 
 app.post("/pay", async (req, res) => {
   try {
-    const { name } = req.body;
-    if (!name) return res.status(400).json({ message: "Please enter a name" });
+    const { amount, id } = req.body;
+    if (!amout) return res.status(400).json({ message: "Amount is missing" });
     const paymentIntent = await stripe.paymentIntents.create({
-      amount: Math.round(25 * 100),
+      amount: amount,
       currency: "INR",
-      payment_method_type: ["Card"],
-      metadata: { name },
+      automatic_payment_methods: {
+        enabled: true,
+      },
+      metadata: { id },
     });
     const clientSecret = paymentIntent.client_secret;
     res.json({ message: "Payment initiated", clientSecret });
